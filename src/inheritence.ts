@@ -1,5 +1,5 @@
 // Parent class
-class Parent {
+class Person {
   //   name: string;
   //   age: number;
   //   address: string;
@@ -15,10 +15,15 @@ class Parent {
   }
 }
 
-// Teacher class
-class Teacher extends Parent {
+// Child class-1
+class Teacher extends Person {
   //designation: string;
-  constructor(name: string, age: number, address: string, designation: string) {
+  constructor(
+    name: string,
+    age: number,
+    address: string,
+    public designation: string
+  ) {
     super(name, age, address);
     //this.designation = designation;
   }
@@ -28,8 +33,8 @@ class Teacher extends Parent {
   }
 }
 
-// Student Class
-class Student extends Parent {
+// Child Class 2
+class Student extends Person {
   constructor(name: string, age: number, address: string) {
     super(name, age, address);
   }
@@ -37,6 +42,8 @@ class Student extends Parent {
 
 const student1 = new Student("XYZ", 15, "Dhaka");
 console.log(student1.sleepingHours(5));
+console.log(student1.address);
 
 const teacher1 = new Teacher("ABC", 40, "Dhaka", "Professor");
 console.log(teacher1.numberOfClasses(3));
+console.log(teacher1.designation);
