@@ -1,7 +1,8 @@
 /*
 Type Guard or type narrowing
- => typeof
- => in operator (only applicable for accessing object or interface property) 
+ => using typeof
+ => using in operator (only applicable for accessing object or interface property)
+ => using instanceof (for classes and there objects/instances)  
 */
 
 // typeof guard
@@ -49,3 +50,55 @@ const adminUser1: IAdminUserAccount = { name: "Admin", age: 40, role: "admin" };
 const normalUser1: INormalUserAccount = { name: "User 1", age: 30 };
 
 console.log(isAdmin(normalUser1));
+
+// instance of guard
+
+class Pet {
+  constructor(public name: string, public species: string) {}
+
+  makeSound(): string {
+    return `Pet is making sound`;
+  }
+}
+
+class Dog extends Pet {
+  constructor(name: string, species: string, public age: number) {
+    super(name, species);
+  }
+  bark(): string {
+    return `${this.name} (${this.species}) is barking`;
+  }
+}
+
+class Cat extends Pet {
+  constructor(name: string, species: string, public age: number) {
+    super(name, species);
+  }
+  meawo(): string {
+    return `${this.name}(${this.species}) is meawoing`;
+  }
+}
+
+const getAnimalType = (petInstance: Pet): string => {
+  if (isDog(petInstance)) {
+    return petInstance.bark();
+  } else if (isCat(petInstance)) {
+    return petInstance.meawo();
+  } else {
+    return petInstance.makeSound();
+  }
+};
+
+const isDog = (pet: Pet): pet is Dog => {
+  return pet instanceof Dog;
+};
+
+const isCat = (pet: Pet): pet is Cat => {
+  return pet instanceof Cat;
+};
+
+const animal1: Pet = new Dog("Spike", "Dog", 5);
+const animal2: Pet = new Cat("Tom", "Cat", 3);
+
+console.log(getAnimalType(animal1));
+console.log(getAnimalType(animal2));
